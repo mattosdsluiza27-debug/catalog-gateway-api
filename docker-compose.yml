@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: movie-catalog-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - OMDB_API_KEY=SUA_CHAVE_AQUI
+    networks:
+      - movie-network
+
+  frontend:
+    build: ./frontend
+    container_name: movie-catalog-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - movie-network
+
+networks:
+  movie-network:
+    driver: bridge
